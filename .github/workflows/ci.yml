@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          POSTGRES_URL: postgresql://fake:fake@localhost:5432/fake?sslmode=require
+          R2_ACCOUNT_ID: fake
+          R2_BUCKET: fake
+          R2_TOKEN: fake
+          R2_PUBLIC_URL: https://fake.example.com
+          API_KEY: fake-api-key
+          UI_PASSWORD: fake-password
+          NEXT_PUBLIC_DAM_API_KEY: fake-api-key
+          NEXT_PUBLIC_APP_NAME: Shelf

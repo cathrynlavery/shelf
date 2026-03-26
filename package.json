@@ -1,0 +1,49 @@
+{
+  "name": "shelf-dam",
+  "version": "0.1.0",
+  "description": "AI-powered digital asset management. Self-hosted and open-source.",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cathrynlavery/shelf.git"
+  },
+  "keywords": [
+    "dam",
+    "digital-asset-management",
+    "asset-library",
+    "nextjs",
+    "cloudflare-r2",
+    "gemini"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest --passWithNoTests",
+    "import:r2": "ts-node --compiler-options '{\"module\":\"CommonJS\",\"moduleResolution\":\"node\"}' scripts/import-from-r2.ts",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0",
+    "next": "^14.2.35",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^15.0.2",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.18",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  }
+}
