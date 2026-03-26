@@ -10,7 +10,7 @@ const mockAssets: Asset[] = [
   {
     id: "uuid-1",
     filename: "sj-hero.jpg",
-    title: "Self Journal Hero Shot",
+    title: "Product A Hero Shot",
     description: null,
     file_url: "https://blob.vercel.com/sj-hero.jpg",
     blob_pathname: "uploads/sj-hero.jpg",
@@ -19,11 +19,11 @@ const mockAssets: Asset[] = [
     file_size_kb: 250,
     width_px: 1200,
     height_px: 800,
-    tags: ["Self Journal", "hero"],
+    tags: ["Product A", "hero"],
     ai_tags: [],
     ai_tagged_at: null,
-    products: ["Self Journal", "Weekly Action Pad"],
-    product: "Self Journal",
+    products: ["Product A", "Product B"],
+    product: "Product A",
     collection: "Products",
     status: "approved",
     uploaded_by: null,
@@ -66,7 +66,7 @@ describe("AssetGrid", () => {
 
   it("renders asset titles", () => {
     render(<AssetGrid assets={mockAssets} />);
-    expect(screen.getByText("Self Journal Hero Shot")).toBeInTheDocument();
+    expect(screen.getByText("Product A Hero Shot")).toBeInTheDocument();
     expect(screen.getByText("Helm Focus Product Video")).toBeInTheDocument();
   });
 
@@ -78,8 +78,8 @@ describe("AssetGrid", () => {
 
   it("renders multiple product names", () => {
     render(<AssetGrid assets={mockAssets} />);
-    expect(screen.getAllByText("Self Journal").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Weekly Action Pad").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Product A").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Product B").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Helm Focus").length).toBeGreaterThan(0);
   });
 
@@ -98,7 +98,7 @@ describe("AssetGrid", () => {
 
   it("renders image for image assets", () => {
     render(<AssetGrid assets={[mockAssets[0]]} />);
-    const img = screen.getByRole("img", { name: "Self Journal Hero Shot" });
+    const img = screen.getByRole("img", { name: "Product A Hero Shot" });
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute("src", "https://blob.vercel.com/sj-hero.jpg");
   });

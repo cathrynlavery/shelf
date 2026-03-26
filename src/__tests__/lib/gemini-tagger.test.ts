@@ -41,7 +41,7 @@ describe("tagImageWithGemini", () => {
               content: {
                 parts: [
                   {
-                    text: '```json\n{"tags":["hero","minimal"],"product":"Self Journal","description":"A clean product shot."}\n```',
+                    text: '```json\n{"tags":["hero","minimal"],"product":"Product A","description":"A clean product shot."}\n```',
                   },
                 ],
               },
@@ -54,7 +54,7 @@ describe("tagImageWithGemini", () => {
 
     expect(result).toEqual({
       tags: ["hero", "minimal"],
-      product: "Self Journal",
+      product: "Product A",
       description: "A clean product shot.",
     });
     expect(global.fetch).toHaveBeenCalledTimes(2);

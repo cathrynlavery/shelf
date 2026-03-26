@@ -11,7 +11,7 @@ describe("CollectionOverviewGrid", () => {
             name: "Products",
             count: 12,
             preview_url: "https://cdn.example.com/products.jpg",
-            latest_title: "Self Journal Hero",
+            latest_title: "Product A Hero",
           },
           {
             name: "Marketing",

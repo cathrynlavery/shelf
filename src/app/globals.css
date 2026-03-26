@@ -320,7 +320,18 @@ a { color: inherit; text-decoration: none; }
   z-index: 2;
 }
 
-.card-body { padding: 14px; }
+.card-tags-strip {
+  padding: 8px 14px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.card-tags-strip .tags {
+  margin: 0;
+}
+
+.card-body { padding: 8px 14px 14px; }
 
 .card-title-link {
   min-width: 0;

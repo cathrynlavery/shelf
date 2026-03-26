@@ -33,13 +33,7 @@ function AssetCard({ asset }: { asset: Asset }) {
           </div>
         </div>
       </a>
-      <div className="card-body">
-        <a href={`/asset/${asset.id}`} className="card-title-link">
-          <div className="card-title" title={asset.title}>
-            {asset.title}
-          </div>
-        </a>
-        <div className="card-meta">{asset.file_type} · {asset.filename}</div>
+      <div className="card-tags-strip">
         {products.length > 0 && (
           <div className="tags card-products">
             {products.map((product) => (
@@ -61,6 +55,14 @@ function AssetCard({ asset }: { asset: Asset }) {
             )}
           </div>
         )}
+      </div>
+      <div className="card-body">
+        <a href={`/asset/${asset.id}`} className="card-title-link">
+          <div className="card-title" title={asset.title}>
+            {asset.title}
+          </div>
+        </a>
+        <div className="card-meta">{asset.file_type} · {asset.filename}</div>
       </div>
     </div>
   );

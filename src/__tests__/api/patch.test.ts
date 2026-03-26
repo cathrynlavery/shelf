@@ -47,14 +47,14 @@ describe("PATCH /api/assets/[id]", () => {
     const updatedAsset = {
       id: "uuid-1",
       filename: "sj-hero.jpg",
-      title: "Self Journal Hero",
-      tags: ["Self Journal", "hero", "approved-2024"],
-      products: ["Self Journal", "Weekly Action Pad"],
+      title: "Product A Hero",
+      tags: ["Product A", "hero", "approved-2024"],
+      products: ["Product A", "Product B"],
       status: "approved",
       file_url: "https://blob.vercel.com/sj-hero.jpg",
       blob_pathname: "uploads/sj-hero.jpg",
       file_type: "image",
-      product: "Self Journal",
+      product: "Product A",
       collection: "Products",
       created_at: "2024-01-01T00:00:00Z",
       updated_at: "2024-01-02T00:00:00Z",
@@ -70,18 +70,18 @@ describe("PATCH /api/assets/[id]", () => {
 
     const req = makeRequest(
       "uuid-1",
-      { tags: ["Self Journal", "hero", "approved-2024"] },
+      { tags: ["Product A", "hero", "approved-2024"] },
       VALID_API_KEY
     );
     const res = await PATCH(req, { params: { id: "uuid-1" } });
     expect(res.status).toBe(200);
 
     const body = await res.json();
-    expect(body.asset.tags).toEqual(["Self Journal", "hero", "approved-2024"]);
+    expect(body.asset.tags).toEqual(["Product A", "hero", "approved-2024"]);
 
     expect(updateAsset).toHaveBeenCalledWith(
       "uuid-1",
-      expect.objectContaining({ tags: ["Self Journal", "hero", "approved-2024"] })
+      expect.objectContaining({ tags: ["Product A", "hero", "approved-2024"] })
     );
   });
 
@@ -89,14 +89,14 @@ describe("PATCH /api/assets/[id]", () => {
     const updatedAsset = {
       id: "uuid-1",
       filename: "sj-hero.jpg",
-      title: "Self Journal Hero",
+      title: "Product A Hero",
       tags: [],
-      products: ["Self Journal"],
+      products: ["Product A"],
       status: "approved",
       file_url: "https://blob.vercel.com/sj-hero.jpg",
       blob_pathname: "uploads/sj-hero.jpg",
       file_type: "image",
-      product: "Self Journal",
+      product: "Product A",
       collection: "Products",
       created_at: "2024-01-01T00:00:00Z",
       updated_at: "2024-01-02T00:00:00Z",
@@ -122,14 +122,14 @@ describe("PATCH /api/assets/[id]", () => {
     const updatedAsset = {
       id: "uuid-1",
       filename: "sj-hero.jpg",
-      title: "Self Journal Hero",
+      title: "Product A Hero",
       tags: ["hero"],
-      products: ["Self Journal", "Bundle"],
+      products: ["Product A", "Product C"],
       status: "approved",
       file_url: "https://blob.vercel.com/sj-hero.jpg",
       blob_pathname: "uploads/sj-hero.jpg",
       file_type: "image",
-      product: "Self Journal",
+      product: "Product A",
       collection: "Products",
       created_at: "2024-01-01T00:00:00Z",
       updated_at: "2024-01-02T00:00:00Z",
@@ -145,7 +145,7 @@ describe("PATCH /api/assets/[id]", () => {
 
     const req = makeRequest(
       "uuid-1",
-      { products: ["Self Journal", "Bundle"] },
+      { products: ["Product A", "Product C"] },
       VALID_API_KEY
     );
     const res = await PATCH(req, { params: { id: "uuid-1" } });
@@ -153,7 +153,7 @@ describe("PATCH /api/assets/[id]", () => {
     expect(res.status).toBe(200);
     expect(updateAsset).toHaveBeenCalledWith(
       "uuid-1",
-      expect.objectContaining({ products: ["Self Journal", "Bundle"] })
+      expect.objectContaining({ products: ["Product A", "Product C"] })
     );
   });
 

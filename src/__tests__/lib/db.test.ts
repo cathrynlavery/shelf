@@ -26,12 +26,12 @@ describe("searchAssetsPage", () => {
 
     const { searchAssetsPage } = await import("@/lib/db");
 
-    await searchAssetsPage({ product: "Self Journal", limit: 20, offset: 0 });
+    await searchAssetsPage({ product: "Product A", limit: 20, offset: 0 });
 
     expect(sqlQueryMock).toHaveBeenNthCalledWith(
       1,
       expect.stringContaining("$1 = ANY(products)"),
-      ["Self Journal", 20, 0]
+      ["Product A", 20, 0]
     );
   });
 });

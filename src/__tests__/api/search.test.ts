@@ -32,7 +32,7 @@ beforeEach(() => {
 
 describe("POST /api/assets/search", () => {
   it("rejects requests with missing API key", async () => {
-    const req = makeRequest({ tags: ["Self Journal"] });
+    const req = makeRequest({ tags: ["Product A"] });
     const res = await POST(req);
     expect(res.status).toBe(401);
     const body = await res.json();
@@ -40,7 +40,7 @@ describe("POST /api/assets/search", () => {
   });
 
   it("rejects requests with invalid API key", async () => {
-    const req = makeRequest({ tags: ["Self Journal"] }, "wrong-key");
+    const req = makeRequest({ tags: ["Product A"] }, "wrong-key");
     const res = await POST(req);
     expect(res.status).toBe(401);
   });
@@ -50,13 +50,13 @@ describe("POST /api/assets/search", () => {
       {
         id: "uuid-1",
         filename: "sj-hero.jpg",
-        title: "Self Journal Hero",
-        tags: ["Self Journal", "hero"],
-        products: ["Self Journal"],
+        title: "Product A Hero",
+        tags: ["Product A", "hero"],
+        products: ["Product A"],
         file_type: "image",
         status: "approved",
         file_url: "https://blob.vercel.com/sj-hero.jpg",
-        product: "Self Journal",
+        product: "Product A",
         created_at: "2024-01-01T00:00:00Z",
         updated_at: "2024-01-01T00:00:00Z",
         blob_pathname: "uploads/sj-hero.jpg",
@@ -76,17 +76,17 @@ describe("POST /api/assets/search", () => {
     });
     (searchAssetsPage as jest.Mock).mockResolvedValue({ assets: mockAssets, total: 1 });
 
-    const req = makeRequest({ tags: ["Self Journal"] }, VALID_API_KEY);
+    const req = makeRequest({ tags: ["Product A"] }, VALID_API_KEY);
     const res = await POST(req);
     expect(res.status).toBe(200);
 
     const body = await res.json();
     expect(body.assets).toHaveLength(1);
-    expect(body.assets[0].title).toBe("Self Journal Hero");
+    expect(body.assets[0].title).toBe("Product A Hero");
     expect(body.count).toBe(1);
 
     expect(searchAssetsPage).toHaveBeenCalledWith(
-      expect.objectContaining({ tags: ["Self Journal"] })
+      expect.objectContaining({ tags: ["Product A"] })
     );
   });
 
@@ -97,7 +97,7 @@ describe("POST /api/assets/search", () => {
         filename: "helm-video.mp4",
         title: "Helm Focus Product Video",
         tags: ["Helm Focus"],
-        products: ["Helm Focus", "Bundle"],
+        products: ["Helm Focus", "Product C"],
         file_type: "video",
         status: "approved",
         file_url: "https://blob.vercel.com/helm-video.mp4",
@@ -131,7 +131,7 @@ describe("POST /api/assets/search", () => {
     const body = await res.json();
     expect(body.assets).toHaveLength(1);
     expect(body.assets[0].file_type).toBe("video");
-    expect(body.assets[0].products).toEqual(["Helm Focus", "Bundle"]);
+    expect(body.assets[0].products).toEqual(["Helm Focus", "Product C"]);
 
     expect(searchAssetsPage).toHaveBeenCalledWith(
       expect.objectContaining({ product: "Helm Focus", file_type: "video" })
@@ -186,7 +186,7 @@ describe("POST /api/assets/search", () => {
   it("handles DB errors gracefully", async () => {
     (searchAssetsPage as jest.Mock).mockRejectedValue(new Error("DB connection failed"));
 
-    const req = makeRequest({ tags: ["Self Journal"] }, VALID_API_KEY);
+    const req = makeRequest({ tags: ["Product A"] }, VALID_API_KEY);
     const res = await POST(req);
     expect(res.status).toBe(500);
     const body = await res.json();

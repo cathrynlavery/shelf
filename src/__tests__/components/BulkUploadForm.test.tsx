@@ -24,7 +24,7 @@ describe("BulkUploadForm", () => {
       target: { files: [createFile("self_journal-hero-shot.jpg")] },
     });
 
-    expect(screen.getByDisplayValue("self journal hero shot")).toBeInTheDocument();
+    expect(screen.getByDisplayValue("product a hero shot")).toBeInTheDocument();
   });
 
   it("limits the queue to 50 files", () => {

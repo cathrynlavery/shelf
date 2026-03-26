@@ -5,7 +5,6 @@ import { CONTENT_TYPES, PRODUCTS } from "@/lib/constants";
 import {
   buildAssetTags,
   titleFromFilename,
-  toggleStringSelection,
 } from "@/lib/asset-utils";
 import { uploadAsset } from "@/lib/upload-client";
 
@@ -187,20 +186,20 @@ export default function BulkUploadForm() {
 
         <div className="bulk-settings">
           <div className="field">
-            <label>Shared Products</label>
-            <div className="checkbox-grid" role="group" aria-label="Shared Products">
+            <label htmlFor="bulk-product">Product</label>
+            <select
+              id="bulk-product"
+              value={products[0] ?? ""}
+              onChange={(event) => setProducts(event.target.value ? [event.target.value] : [])}
+              disabled={isUploading}
+            >
+              <option value="">Select product…</option>
               {PRODUCTS.map((option) => (
-                <label key={option} className="checkbox-option">
-                  <input
-                    type="checkbox"
-                    checked={products.includes(option)}
-                    onChange={() => setProducts((current) => toggleStringSelection(current, option))}
-                    disabled={isUploading}
-                  />
-                  <span>{option}</span>
-                </label>
+                <option key={option} value={option}>
+                  {option}
+                </option>
               ))}
-            </div>
+            </select>
           </div>
 
           <div className="field">

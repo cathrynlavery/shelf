@@ -8,7 +8,6 @@ import {
   formatDimensions,
   formatFileSize,
   parseTagInput,
-  toggleStringSelection,
 } from "@/lib/asset-utils";
 
 function AssetPreview({ asset }: { asset: Asset }) {
@@ -194,20 +193,20 @@ export default function AssetDetailView({ initialAsset }: { initialAsset: Asset 
 
             <div className="detail-form-grid">
               <div className="field">
-                <label>Products</label>
-                <div className="checkbox-grid" role="group" aria-label="Products">
+                <label htmlFor="asset-product">Product</label>
+                <select
+                  id="asset-product"
+                  value={products[0] ?? ""}
+                  onChange={(event) => setProducts(event.target.value ? [event.target.value] : [])}
+                  disabled={isSaving}
+                >
+                  <option value="">No product</option>
                   {PRODUCTS.map((option) => (
-                    <label key={option} className="checkbox-option">
-                      <input
-                        type="checkbox"
-                        checked={products.includes(option)}
-                        onChange={() => setProducts((current) => toggleStringSelection(current, option))}
-                        disabled={isSaving}
-                      />
-                      <span>{option}</span>
-                    </label>
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
                   ))}
-                </div>
+                </select>
               </div>
 
               <div className="field">

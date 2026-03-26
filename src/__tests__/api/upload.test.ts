@@ -84,14 +84,14 @@ describe("POST /api/assets/upload", () => {
     const mockAsset = {
       id: "uuid-upload-1",
       filename: "sj-hero.jpg",
-      title: "Self Journal Hero Shot",
-      tags: ["Self Journal", "hero"],
-      products: ["Self Journal", "Weekly Action Pad"],
+      title: "Product A Hero Shot",
+      tags: ["Product A", "hero"],
+      products: ["Product A", "Product B"],
       file_type: "image",
       status: "draft",
       file_url: "https://pub-test.r2.dev/uploads/123-sj-hero.jpg",
       blob_pathname: "uploads/123-sj-hero.jpg",
-      product: "Self Journal",
+      product: "Product A",
       collection: "Products",
       created_at: "2024-01-01T00:00:00Z",
       updated_at: "2024-01-01T00:00:00Z",
@@ -108,9 +108,9 @@ describe("POST /api/assets/upload", () => {
     const req = makeFormRequest(
       {
         filename: "sj-hero.jpg",
-        title: "Self Journal Hero Shot",
-        tags: '["Self Journal","hero"]',
-        products: '["Self Journal","Weekly Action Pad"]',
+        title: "Product A Hero Shot",
+        tags: '["Product A","hero"]',
+        products: '["Product A","Product B"]',
         mime_type: "image/jpeg",
         uploaded_by: "team-ui",
       },
@@ -127,9 +127,9 @@ describe("POST /api/assets/upload", () => {
     expect(createAsset).toHaveBeenCalledWith(
       expect.objectContaining({
         filename: "sj-hero.jpg",
-        title: "Self Journal Hero Shot",
+        title: "Product A Hero Shot",
         file_type: "image",
-        products: ["Self Journal", "Weekly Action Pad"],
+        products: ["Product A", "Product B"],
         mime_type: "image/jpeg",
       })
     );
@@ -139,14 +139,14 @@ describe("POST /api/assets/upload", () => {
     const mockAsset = {
       id: "uuid-upload-2",
       filename: "sj-hero.jpg",
-      title: "Self Journal Hero Shot",
-      tags: ["Self Journal"],
-      products: ["Self Journal"],
+      title: "Product A Hero Shot",
+      tags: ["Product A"],
+      products: ["Product A"],
       file_type: "image",
       status: "draft",
       file_url: "https://pub-test.r2.dev/uploads/123-sj-hero.jpg",
       blob_pathname: "uploads/123-sj-hero.jpg",
-      product: "Self Journal",
+      product: "Product A",
       collection: "Products",
       created_at: "2024-01-01T00:00:00Z",
       updated_at: "2024-01-01T00:00:00Z",
@@ -160,17 +160,17 @@ describe("POST /api/assets/upload", () => {
 
     (createAsset as jest.Mock).mockResolvedValue(mockAsset);
     (tagImageWithGemini as jest.Mock).mockResolvedValue({
-      tags: ["hero", "minimal", "Self Journal"],
-      product: "Self Journal",
+      tags: ["hero", "minimal", "Product A"],
+      product: "Product A",
       description: "A clean product shot.",
     });
 
     const req = makeFormRequest(
       {
         filename: "sj-hero.jpg",
-        title: "Self Journal Hero Shot",
-        tags: '["Self Journal"]',
-        products: '["Self Journal"]',
+        title: "Product A Hero Shot",
+        tags: '["Product A"]',
+        products: '["Product A"]',
         mime_type: "image/jpeg",
         uploaded_by: "team-ui",
       },
@@ -186,8 +186,8 @@ describe("POST /api/assets/upload", () => {
       "image/jpeg"
     );
     expect(updateAssetTags).toHaveBeenCalledWith("uuid-upload-2", {
-      tags: ["Self Journal", "hero", "minimal"],
-      aiTags: ["hero", "minimal", "Self Journal"],
+      tags: ["Product A", "hero", "minimal"],
+      aiTags: ["hero", "minimal", "Product A"],
     });
   });
 
@@ -195,14 +195,14 @@ describe("POST /api/assets/upload", () => {
     (createAsset as jest.Mock).mockResolvedValue({
       id: "uuid-upload-3",
       filename: "bundle.jpg",
-      title: "Bundle Hero",
+      title: "Product C Hero",
       tags: [],
-      products: ["Self Journal", "Bundle"],
+      products: ["Product A", "Product C"],
       file_type: "image",
       status: "draft",
       file_url: "https://pub-test.r2.dev/uploads/123-bundle.jpg",
       blob_pathname: "uploads/123-bundle.jpg",
-      product: "Self Journal",
+      product: "Product A",
       collection: null,
       created_at: "2024-01-01T00:00:00Z",
       updated_at: "2024-01-01T00:00:00Z",
@@ -217,8 +217,8 @@ describe("POST /api/assets/upload", () => {
     const req = makeFormRequest(
       {
         filename: "bundle.jpg",
-        title: "Bundle Hero",
-        products: "Self Journal, Bundle",
+        title: "Product C Hero",
+        products: "Product A, Product C",
         mime_type: "image/jpeg",
       },
       VALID_API_KEY
@@ -228,7 +228,7 @@ describe("POST /api/assets/upload", () => {
     expect(res.status).toBe(201);
     expect(createAsset).toHaveBeenCalledWith(
       expect.objectContaining({
-        products: ["Self Journal", "Bundle"],
+        products: ["Product A", "Product C"],
       })
     );
   });
